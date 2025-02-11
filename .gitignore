@@ -1,0 +1,30 @@
+# Python cache/intermediate files
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+
+# pytest cache
+.pytest_cache/
+.benchmarks/
+
+# Environments
+env/
+venv/
+.venv/
+
+# Editor/IDE settings
+.vscode/
+.idea/
+
+# Log/coverage
+*.log
+.coverage
+htmlcov/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
