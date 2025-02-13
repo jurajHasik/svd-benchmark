@@ -13,6 +13,13 @@ def pytest_addoption(parser):
         default="float32,float64,complex64,complex128",
         help="Comma-separated list of dtypes."
     )
+    parser.addoption(
+        "--ratios",
+        action="store",
+        default="0.02,0.015,0.01",
+        help="Comma-separated list of ratios of the spectrum to compute when using partial solver."
+    )
+
 
 def pytest_generate_tests(metafunc):
     if "size" in metafunc.fixturenames:
@@ -25,3 +32,9 @@ def pytest_generate_tests(metafunc):
         dtypes = [dt.strip() for dt in dtypes]
         assert all(dt in TYPES for dt in dtypes), f"Invalid dtypes: {dtypes}, valid dtypes: {TYPES}"
         metafunc.parametrize("dtype", dtypes)
+
+    if "ratio" in metafunc.fixturenames:
+        ratios = metafunc.config.getoption("ratios").split(",")
+        ratios = [float(rt.strip()) for rt in ratios]
+        assert all(rt<1 for rt in ratios), f"Invalid ratios: {ratios}, ratios must be less than 1"
+        metafunc.parametrize("ratio", ratios)
